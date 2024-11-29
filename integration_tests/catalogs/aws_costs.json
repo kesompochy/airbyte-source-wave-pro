@@ -1,0 +1,57 @@
+{
+  "streams": [
+    {
+      "stream": {
+        "name": "wave_aws_costs_stream",
+        "json_schema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "account": { "type": "string" },
+            "groupId": { "type": "string" },
+            "type": { "type": "string" },
+            "date": { "type": "string" },
+            "productCode": { "type": "string" },
+            "serviceCode": { "type": "string" },
+            "region": { "type": "string" },
+            "zone": { "type": "string" },
+            "usageType": { "type": "string" },
+            "instanceType": { "type": "string" },
+            "operation": { "type": "string" },
+            "invoiceId": { "type": "string" },
+            "description": { "type": "string" },
+            "resourceId": { "type": "string" },
+            "tags": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "costCategories": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "usage": { "type": "number" },
+            "cost": { "type": "number" },
+            "unblendedCost": { "type": "number" },
+            "baseCurrency": { "type": "string" },
+            "exchangeRate": { "type": "number" },
+            "targetCost": { "type": "number" },
+            "targetUnblendedCost": { "type": "number" },
+            "targetCurrency": { "type": "string" },
+            "effectiveCost": { "type": "number" },
+            "targetEffectiveCost": { "type": "number" },
+            "amortizedCost": { "type": "number" },
+            "targetAmortizedCost": { "type": "number" },
+            "tagId": { "type": "string" },
+            "timestamp": { "type": "string" }
+          }
+        },
+        "supported_sync_modes": ["full_refresh", "incremental"],
+        "source_defined_cursor": true,
+        "default_cursor_field": ["date"]
+      },
+      "sync_mode": "incremental",
+      "cursor_field": ["date"],
+      "destination_sync_mode": "append"
+    }
+  ]
+}

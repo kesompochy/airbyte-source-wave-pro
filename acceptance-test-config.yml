@@ -1,10 +1,10 @@
-connector_image: airbyte/source-YOUR_PACKAGE:dev
+connector_image: airbyte/source-wave-pro:dev
 test_strictness_level: low
 
 acceptance_tests:
   spec:
     tests:
-      - spec_path: "YOUR_PACKAGE/spec.yaml"
+      - spec_path: "airbyte_source_wave_pro/spec.yaml"
   
   connection:
     tests:

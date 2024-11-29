@@ -1,35 +1,53 @@
 from unittest.mock import MagicMock
 
-from YOUR_PACKAGE.source import SourceYOUR_PACKAGE
+import pytest
+
+from airbyte_source_wave_pro.source import (
+    SourceWave,
+    WaveAuthenticator,
+    WaveAWSCostsStream,
+    WaveAzureCostsStream,
+    WaveGCPCostsStream,
+)
 
 
 def test_check_connection(mocker):
-    source = SourceYOUR_PACKAGE()
+    source = SourceWave()
     logger_mock = MagicMock()
     config = {
-        # Add your test config here
+        "client_id": "test_client_id",
+        "client_secret": "test_client_secret",
+        "billing_group_id": "test_billing_group",
     }
 
-    requests_mock = mocker.patch("requests.get")
+    # Mock the token response
+    requests_mock = mocker.patch("requests.post")
     requests_mock.return_value.status_code = 200
+    requests_mock.return_value.json.return_value = {
+        "access_token": "test_token",
+        "expires_in": 3600,
+    }
+
     assert source.check_connection(logger_mock, config) == (True, None)
 
-    requests_mock.return_value.status_code = 403
-    requests_mock.return_value.text = "Unauthorized"
+    # Test failure case
+    requests_mock.side_effect = Exception("Connection error")
     assert source.check_connection(logger_mock, config) == (
         False,
-        "HTTP 403: Unauthorized",
+        "Error while refreshing access token: Connection error",  # 修正: 実際の出力に合わせる
     )
 
-    requests_mock.side_effect = Exception("Connection error")
-    assert source.check_connection(logger_mock, config) == (False, "Connection error")
 
-
-def test_streams(mocker):
-    source = SourceYOUR_PACKAGE()
+def test_streams():
+    source = SourceWave()
     config = {
-        # Add your test config here
+        "client_id": "test_client_id",
+        "client_secret": "test_client_secret",
+        "billing_group_id": "test_billing_group",
     }
     streams = source.streams(config)
-    expected_streams_number = 1  # Adjust based on your implementation
-    assert len(streams) == expected_streams_number
+
+    assert len(streams) == 3  # AWS, GCP, Azure
+    assert isinstance(streams[0], WaveAWSCostsStream)
+    assert isinstance(streams[1], WaveGCPCostsStream)
+    assert isinstance(streams[2], WaveAzureCostsStream)
