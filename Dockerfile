@@ -4,7 +4,7 @@ FROM airbyte/python-connector-base:1.1.0
 WORKDIR /airbyte/integration_code
 COPY pyproject.toml poetry.lock ./
 COPY main.py ./
-COPY YOUR_PACKAGE ./YOUR_PACKAGE
+COPY airbyte_source_wave_pro/ ./airbyte_source_wave_pro/
 COPY metadata.yaml ./
 COPY README.md ./
 RUN pip install .

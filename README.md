@@ -1,1 +1,1 @@
-# Airbyte Source Template
+# Airbyte Source Wave Pro

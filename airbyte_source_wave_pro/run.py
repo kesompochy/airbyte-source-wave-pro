@@ -7,9 +7,9 @@ import sys
 
 from airbyte_cdk.entrypoint import launch
 
-from .source import SourceYOUR_PACKAGE
+from .source import SourceWave
 
 
 def run():
-    source = SourceYOUR_PACKAGE()
+    source = SourceWave()
     launch(source, sys.argv[1:])

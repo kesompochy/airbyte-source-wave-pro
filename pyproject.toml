@@ -7,20 +7,23 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 version = "0.1.0"
-name = "airbyte-source-YOUR_PACKAGE"
-description = "Source implementation for YOUR_PACKAGE."
-authors = [ "YOUR_GITHUB_USERNAME",]
+name = "airbyte-source-wave-pro"
+description = "Source implementation for airbyte-source-wave-pro."
+authors = [ "kesompochy",]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/YOUR_GITHUB_USERNAME/YOUR_PACKAGE"
-packages = [ { include = "airbyte_source_YOUR_PACKAGE" }, {include = "main.py" } ]
+repository = "https://github.com/kesompochy/airbyte-source-wave-pro"
+packages = [ 
+    { include = "airbyte_source_wave_pro" },
+    { include = "main.py" } 
+]
 
 [tool.poetry.dependencies]
 python = "^3.9,<3.12"
 airbyte-cdk = "^0"
 
 [tool.poetry.scripts]
-airbyte-source-YOUR_PACKAGE = "airbyte_source_YOUR_PACKAGE.run:run"
+airbyte-source-wave-pro = "airbyte_source_wave_pro.run:run"
 
 [tool.poetry.group.dev.dependencies]
 requests-mock = "*"
