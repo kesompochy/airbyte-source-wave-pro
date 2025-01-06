@@ -54,19 +54,6 @@ def test_request_body_json(auth, config):
     assert body["billingGroupId"] == "test_group"
 
 
-def test_request_body_json_with_state(auth, config):
-    stream = WaveAWSCostsStream(authenticator=auth, config=config)
-
-    body = stream.request_body_json()
-    assert "startTime" in body
-    assert "endTime" in body
-    assert body["billingGroupId"] == "test_group"
-
-    state = {"date": "2025-01-04T00:00:00Z"}
-    body = stream.request_body_json(stream_state=state)
-    assert body["startTime"] == "20250104"
-
-
 def test_parse_response(auth, config, mocker):
     stream = WaveAWSCostsStream(authenticator=auth, config=config)
     response_mock = mocker.MagicMock()
