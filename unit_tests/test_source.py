@@ -34,7 +34,7 @@ def test_check_connection(mocker):
     requests_mock.side_effect = Exception("Connection error")
     assert source.check_connection(logger_mock, config) == (
         False,
-        "Error while refreshing access token: Connection error",  # 修正: 実際の出力に合わせる
+        "Error while refreshing access token: Connection error",
     )
 
 

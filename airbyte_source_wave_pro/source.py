@@ -171,10 +171,8 @@ class WaveCostsStream(IncrementalWaveStream, ABC):
         self, stream_state: Optional[Mapping[str, Any]] = None, **kwargs
     ) -> Optional[Mapping]:
         if stream_state and stream_state.get(self.cursor_field):
-            start_date = (
-                pendulum.parse(stream_state[self.cursor_field])
-                .add(days=1)
-                .format("YYYYMMDD")
+            start_date = pendulum.parse(stream_state[self.cursor_field]).format(
+                "YYYYMMDD"
             )
         else:
             start_date = self.config.get(
